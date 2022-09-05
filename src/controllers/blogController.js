@@ -47,3 +47,6 @@ const updateblog = async function (req, res)
 
 
 
+module.exports.createblog = createblog
+module.exports.getblogData = getblogData
+module.exports.updateblog = updateblog
