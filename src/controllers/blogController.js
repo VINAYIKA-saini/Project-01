@@ -8,7 +8,6 @@ const BlogModel= require("..models/blogModel")
 }
 
    const getBlogdata= async function (req ,res)
-
 {
     let allBlog=await BookModel.find({})
     res.send({msg:allBlog})
