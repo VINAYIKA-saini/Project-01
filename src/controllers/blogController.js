@@ -1,7 +1,7 @@
 const { count } = require("console")
 const blogModel = require("../models/blogModel")
 
-<<<<<<< HEAD
+
    const createBlog= async function (res,req)
 { 
    let data = req.body
@@ -10,10 +10,7 @@ const blogModel = require("../models/blogModel")
 }
 
    const getBlogdata= async function (req ,res)
-=======
-
-const createblog = async function (req, res) 
->>>>>>> 8bffaa7408a2114165ed95e092d25baab34c4fd1
+   //const createblog = async function (req, res) 
 {
     try 
     {
@@ -58,6 +55,6 @@ const updateblog = async function (req, res)
 
 
 
-module.exports.createblog = createblog
+module.exports.createblog = createBlog
 module.exports.getblogData = getblogData
 module.exports.updateblog = updateblog
