@@ -1,5 +1,4 @@
-
-   const BlogModel= require("..models/BlogModel")
+const BlogModel= require("..models/blogModel")
 
    const createBlog= async function (res,req)
 { 
@@ -15,5 +14,5 @@
     res.send({msg:allBlog})
 }
 
-module.export.createBlog
-module.exo
+module.exports.createBlog=createBlog
+module.exports.getBlogdata=getBlogdata
