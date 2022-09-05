@@ -1,60 +1,23 @@
-const { count } = require("console")
-const blogModel = require("../models/blogModel")
+const blogsModel=require("../models/blogmodel")
+const authorModel=require("../models/authorModel")
 
 
-   const createBlog= async function (res,req)
-{ 
-   let data = req.body
-   let savedData=await BlogModel.create(data)
-   res.send({msg:savedData})
-}
-
-   const getBlogdata= async function (req ,res)
-   //const createblog = async function (req, res) 
-{
-    try 
-    {
-        let data = req.body
-        console.log(data)
-        if ( Object.keys(data).length != 0) {
-            let savedData = await blogModel.create(data)
-            res.status(201).send({ msg: savedData })
-        }
-        else res.status(400).send({ msg: "BAD REQUEST"})
+const createBlogs=async function(req,res){
+    try {
+        let data =req.body
+        let authorId=req.body.authorId
+        if(!authorId)return res.status(400).send({status:false,msg:"please provide authorId"})
+        if(Object.keys(data).length !=0){
+        let authorId=await authorModel.findOne({_id:data.authorId})
+        if(!authorId) return res.status(400).send({status:false,msg:"please provide invalid auhtor id "})
+        let savedData=await blogsModel.create(data)
+          return  res.status(201).send({status:true,data:savedData})
+    }else{
+        return  res.status(400).send({status:false,msg:"body is empty"})
     }
-    catch (err) 
-    {
-        console.log("This is the error :", err.message)
-        res.status(500).send({ msg: "Error", error: err.message })
+    } catch (error) {
+      return  res.status(500).send({status:false,msg:error.message})
     }
 }
 
-const getblogData = async function (req, res) 
-{
-    let allblog = await blogModel.find({ authorName: "" })
-    console.log(allblog)
-    if (allblog.length > 0) res.send({ msg: allblog, condition: true })
-    else res.send({ msg: "No blogs found", condition: false })
-}
-
-
-const updateblog = async function (req, res) 
-{
-    let data = req.body 
-    
-    let allblog = await blogModel.findOneAndUpdate(
-        { authorName: "ABC" }, 
-        { $set: data }, 
-        { new: true, upsert: true } ,
-    )
-
-    res.send({msg: allblog})
-}
-
-
-
-
-
-module.exports.createblog = createBlog
-module.exports.getblogData = getblogData
-module.exports.updateblog = updateblog
+module.exports.createBlogs=createBlogs
