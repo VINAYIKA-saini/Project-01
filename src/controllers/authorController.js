@@ -1,21 +1,25 @@
 const authorModel = require("../models/authorModel")
+const count  = require("console")
 
-const createAuthor = async function (req, res) {
+async function createAuthor(req, res) {
     try {
         let data = req.body
-        let authorId = data.author_id
-        if (!authorId) return res.send({ msg: 'AuthorId is mandatory in the request' })
+        // let authorId = data.dauthor_id
+        if (!data.fname)
+            return res.send({ msg: 'fname is mandatory in the request' })
 
         let savedData = await authorModel.create(data)
-        res.send({ data: savedData })
-        res.status(200).send({ msg: savedData });
-    } 
+        // res.send({ data: savedData })
+        res.status(200).send({ data: savedData })
+    }
     catch (error) {
-    console.log(error)
-    res.status(500).send({ msg: error.message })
-}}
+        console.log(error)
+        res.status(500).send({ msg: error.message })
+    }
+}
 
 module.exports.createAuthor = createAuthor
+
 
 
 
