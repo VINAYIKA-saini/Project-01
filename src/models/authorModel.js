@@ -3,26 +3,26 @@ const mongoose = require(`mongoose`)
 const authorSchema = mongoose.Schema(
     {
         fname :{
-            type : string ,
+            type : String ,
             require : true
         },
         lname :{
-            type : string ,
+            type : String ,
             require : true
         },
         title : {
-            type : string ,
+            type : String ,
             enum : ["Mr" , "Mrs" , "Miss"] ,
             required : true
         },
         email : {
-            type : string ,
+            type : String ,
             required : true ,
             unique : true ,
             lowercase : {require : true}
         },
         password : {
-            type : string ,
+            type : String ,
             required : true
         }},{ timestamps : true}
 
