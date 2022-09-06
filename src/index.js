@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const route = require('./router/route.js');
 const mongoose = require('mongoose');
 app.use(express.json())
@@ -22,4 +22,4 @@ app.use('/',route);
 //     console.log("Connected to PORT 3000")
 // });
 
-app.listen(4000, ()=> console.log("done"));
+app.listen(5000, ()=> console.log("done"));
