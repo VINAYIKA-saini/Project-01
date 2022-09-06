@@ -1,6 +1,6 @@
 const authorModel = require("../models/authorModel")
 const count  = require("console")
-
+///========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>
 async function createAuthor(req, res) {
     try {
         let data = req.body
@@ -20,14 +20,5 @@ async function createAuthor(req, res) {
         res.status(500).send({ msg: error.message })
     }
 }
-
+///========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>
 module.exports.createAuthor = createAuthor
-
-
-
-
-
-
-// if (!Validators.isValidRequestBody(requestBody))
-            
-//             return res.status(400).send({ status: false, message: 'Invalid request body. Please provide author details.' })

@@ -8,8 +8,8 @@ router.post("/authors",AuthorController.createAuthor);
 router.post("/blog",blogController.createBlogs);
 router.get("/getblog",blogController.getblogs);
 
+router.put('/blogs/:blogId',blogController.updateBlog)
+router.delete('/blogs/:blogId',blogController.deleteBlog)
+router.delete('/blogs',blogController.deletebyquery)
 
-router.post("/authors",AuthorController.createAuthor);
-router.post("/blog",blogController.createBlogs)
-router.get("/getblogs",blogController.createBlogs)
 module.exports = router;
