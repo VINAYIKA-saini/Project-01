@@ -20,17 +20,32 @@ const createBlogs=async function(req,res){
     }
 }
 
-const getblogs = async (req, res) => {
+const getblogs = async function (req, res) {
     try {
-       let combination = req.query
-       let dataBlog =await blogsModel.find({$and:[{isDeleted:false,isPublished:true},combination]})
-   if (dataBlog==0){
-       return res.status(404).send({error:" DATA NOT FOUND "})
-   }else 
-       return res.status(201).send({ data: dataBlog })
-   } catch (err) {
-       res.status(500).send({ status: false, error: err.message })
-   }
-}
+     
+  
+      const check = await blogsModel.find({ ...req.query, isDeleted: false, isPublished: false });
+      if (check.length == 0) return res.status(404).send({ status: false, msg: "No blogs found" })
+  
+      return res.status(200).send({ status: true, data: check });
+    } catch (error) {
+      res.status(500).send({ status: false, error: error.message });
+    }
+  }
+
+
+
+
+  const updateblogs = async function (req, res) {
+    try {
+        let id = req.params.blogId;
+        let list = await BlogModel.findOneAndUpdate({ _id: id, isDeleted: false }, {
+            $addToSet: { tags: { $each: blogData.tags }, subcategory: { $each: blogData.subcategory } },
+            title: blogData.title,
+            body: blogData.body,
+            publishedAt: new Date(),
+        },
+
+  
 module.exports.createBlogs=createBlogs
 module.exports.getblogs=getblogs
