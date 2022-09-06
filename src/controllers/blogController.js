@@ -20,4 +20,21 @@ const createBlogs=async function(req,res){
     }
 }
 
+//update body
+
+const updateBlog = async function (req, res) {
+    
+    let authorId = req.params.authorId;
+    let author = await userModel.findById(authorId);
+    
+    if (!author) { return res.send("No such user exists"); }
+  
+    let authorData = req.body;
+    let updatedBlog = await userModel.findOneAndUpdate({ _id: authorId }, authorData);
+    res.send({ status: updatedauthor, data: updatedBlog });
+  };
+
+
+
 module.exports.createBlogs=createBlogs
+module.exports.updateBlog=updateBlog
