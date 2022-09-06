@@ -33,5 +33,11 @@ router.get("/getblog",blogController.getblogs);
 //router.put("/putblog",blogController.updateBlog)
 
 
-
+router.put('/blogs/:blogId',blogController.updateBlog)
+router.delete('/blogs/:blogId',blogController.deleteBlog)
+router.delete('/blogs',blogController.deletebyquery)
 module.exports = router;
+
+
+
+

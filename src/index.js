@@ -22,4 +22,4 @@ app.use('/',route);
 //     console.log("Connected to PORT 3000")
 // });
 
-app.listen(5000, ()=> console.log("done"));
+app.listen(3500, ()=> console.log("done"));
