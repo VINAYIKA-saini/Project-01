@@ -10,12 +10,7 @@ async function createAuthor(req, res) {
         if(!data.title == "mr||mrs||miss") return res.send ({msg: `title is mandatory in the request`})
         if (!data.email) return res.send({ msg: 'email is mandatory in the request' })
         if (!data.password) return res.send({ msg: 'password is mandatory in the request' })
-
-
-        
-
-
-
+    
         let savedData = await authorModel.create(data)
         // res.send({ data: savedData })
         res.status(200).send({ data: savedData })
