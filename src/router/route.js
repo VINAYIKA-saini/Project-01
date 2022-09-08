@@ -5,17 +5,19 @@ const blogController = require("../controllers/blogController");
 const auth  = require('../middleware/auth');
 
 
-router.post("/authors",AuthorController.createAuthor);
+router.post("/createauthors",AuthorController.createAuthor);
 
-router.post("/blog", auth.authToken,blogController.createBlogs);
+router.post("/loginAuthor",AuthorController.loginAuthor);
 
-router.get("/getblog",auth.authToken ,blogController.getblogs);
+router.post("/createblog",blogController.createBlogs);
 
-router.put('/blogs/:blogId',auth.authToken,blogController.updateBlog);
+router.get("/getblog",auth.authenticate,blogController.getblogs);
 
-router.delete('/blogs/:blogId',auth.authToken, blogController.deleteBlog);
-router.delete('/blogs',auth.authToken, blogController.deletebyquery);
+// router.put('/blogs/:blogId',auth.Authenticate,blogController.updateBlog);
 
+// router.delete('/blogs/:blogId',auth.Authenticate, blogController.deletebyParam);
+
+// router.delete('/blogs',auth.Authenticate, blogController.deletebyquery);
 
 module.exports = router;
 
