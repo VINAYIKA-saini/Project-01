@@ -22,7 +22,7 @@ const createAuthor = async function (req, res) {
         if (!data.email == ("/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"))return res.send({ msg: "email is mandatory in the request" }); 
         
         const passwordData = data.password;
-        if (!data.password == ("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"))return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
+        if (!data.password == "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}")return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
 
         let savedData = await authorModel.create(data);
        res.status(200).send({ data: savedData });
@@ -54,7 +54,7 @@ const loginAuthor = async function (req, res) {
                 authorId: author._id.toString(),
                 email: author.email,
             },
-            "loginpagewithemailpasswordsecret-key",
+            "70-group-secretkey",
             {
                 expiresIn:"24h"
             }

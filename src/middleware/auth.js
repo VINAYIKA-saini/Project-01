@@ -1,47 +1,49 @@
 const jwt = require("jsonwebtoken");
-const authentication = async function (req, res, next) {
-   
-   
-    //authentication
-   try {
-        let tokenkey = req.headers["x-api-key"];
-        if (!tokenkey) {
-            return res.status(400).send({ status: false, msg: "token not valid, provide the token to create a blog" })
-        }
-        console.log(tokenkey)
+const blogmodel = require("../models/blogmodel");
 
-        let decodedToken = jwt.verify(tokenkey, "loginpagewithemailpasswordsecret-key")
-        if (!decodedToken) {
-            return res.status(403).send({ status: false, msg: "token  is invalid" });
-        }
-       req.recentToken = decodedToken
-       next();
-       }
-        catch (crr) {
-        return res.status(500).send({ status: false, msg: err.message })
-        }
+
+const authentication = async function (req, res, next) {
+  try {
+
+    let token = req.headers["x-api-key"];
+
+    if (!token) return res.status(400).send({ status: false, msg: "Enter token in header" });
+
+    jwt.verify(token,"70-group-secretkey",function(error,decoded){
+
+      if(error)return res.status(401).send({ status: false, msg: "Invalid Token" });
+
+      else 
+      req.authorId = decoded.authorId;
+      next()
+   });   
+  } catch (error) {
+    res.status(500).send({ status: false, msg: error.message });
+  }
+};
+
+const authorization = async function (req, res, next) {
+  try {
+
+    let blogId = req.params.blogId;
+    
+    if(blogId){
+
+   
+
+      let findBlog = await blogmodel.findById(blogId);
+      if (findBlog) {
+        if (req.authorId != findBlog.authorId)return res.status(403).send({ status: false, msg:"author is not authorized to access this blog"});
+      }
     }
 
+    next();  
 
-    //authorisation
+  } catch (error) {
+    
+    console.log(error);
+    res.status(500).send({ status: false, msg: error.message });
+  }
+};
 
-
-    const authorisation = async function (req, res, next) {
-        try {
-            let blog1 = req.params.blogId;
-            let blog2 = await blogId.findOne({authorId:authorId});
-            let decodedDetail = req.recentToken.authorId
-            if (authorId != decodedDetail) {
-                return res.status(403).send("Can't login with this user You have to modify the request user details.")
-            }
-         next() 
-        
-        } catch (error) {
-            res.status(500).send({ error: error.message })
-        }
-    };
-
-
-
-module.exports.authentication = authentication
-module.exports.authorisation = authorisation
+module.exports = { authentication, authorization};
