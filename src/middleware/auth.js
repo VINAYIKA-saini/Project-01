@@ -1,62 +1,49 @@
 const jwt = require("jsonwebtoken");
+const blogmodel = require("../models/blogmodel");
 
-const authenticate = async function (req, res, next) {
-    try {
-      let token = req.headers["x-api-key"]
-      if (!token) {
-        //404- not found
-        return res.status(404).send({ status: false, msg: "token must be present" });
-      }
+
+const authentication = async function (req, res, next) {
+  try {
+
+    let token = req.headers["x-api-key"];
+
+    if (!token) return res.status(400).send({ status: false, msg: "Enter token in header" });
+
+    jwt.verify(token,"70-group-secretkey",function(error,decoded){
+
+      if(error)return res.status(401).send({ status: false, msg: "Invalid Token" });
+
+      else 
+      req.authorId = decoded.authorId;
       next()
-    } catch (err) {
-      return res.status(500).send({ status: false, msg: err.message });
+   });   
+  } catch (error) {
+    res.status(500).send({ status: false, msg: error.message });
+  }
+};
+
+const authorization = async function (req, res, next) {
+  try {
+
+    let blogId = req.params.blogId;
+    
+    if(blogId){
+
+   
+
+      let findBlog = await blogmodel.findById(blogId);
+      if (findBlog) {
+        if (req.authorId != findBlog.authorId)return res.status(403).send({ status: false, msg:"author is not authorized to access this blog"});
+      }
     }
-  };
-  
-    module.exports.authenticate = authenticate
-    //authorisation
 
+    next();  
 
-    // const authorisation = async function (req, res, next) {
-    //     try {
-    //         let blog1 = req.params.blogId;
-    //         let blog2 = await blogId.findOne({authorId:authorId});
-    //         let decodedDetail = req.recentToken.authorId
-    //         if (authorId != decodedDetail) {
-    //             return res.status(403).send("Can't login with this user You have to modify the request user details.")
-    //         }
-    //      next() 
-        
-    //     } catch (error) {
-    //         res.status(500).send({ error: error.message })
-    //     }
-    // };
+  } catch (error) {
+    
+    console.log(error);
+    res.status(500).send({ status: false, msg: error.message });
+  }
+};
 
-
-
-
-// module.exports.authorisation = authorisation
-
-// const jwt = require('jsonwebtoken')
-
-// const auth = async function(req, res, next) {
-//     try {
-//         const token = req.headers['x-api-key']
-//         if (!token)     return res.status(401).send({status: false, msg: "Please provide token" })
-//         const validToken = jwt.verify(token, "jatin kumar")
-
-//         // Passing the decoded token inside req to acces it in controllers for authorisation.
-
-//         req.validToken = validToken
-//         next()
-//     } catch (error) {
-
-//         // Handling errors related to jwt token.
-
-//         if(error.message == "jwt malformed")    return res.status(401).send({status: false, msg: "Token is Incorrect" })
-//         if(error.message == "invalid token")    return res.status(401).send({status: false, msg: "Token is Incorrect" })
-//         return res.status(500).send ({status: false, msg: error.message });
-//     }
-// }
-
-// module.exports.auth = auth;
+module.exports = { authentication, authorization};
