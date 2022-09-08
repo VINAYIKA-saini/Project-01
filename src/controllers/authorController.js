@@ -1,65 +1,76 @@
 const authorModel = require("../models/authorModel");
-const jwt =require("jsonwebtoken");
 
-///========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>===
+const jwt = require("jsonwebtoken");
 
-//👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
+//createAuthor
 
-async function createAuthor(req, res) {
+const createAuthor = async function (req, res) {
 
-    //     try {
-    //         let data = req.body
-    //         // let authorId = data.dauthor_id
-    //         if (!data.fname) return res.send({ msg: 'fname is mandatory in the request' })
-    //         if (!data.lname) return res.send({ msg: 'lname is mandatory in the request' })
-    //         if(!data.title == "mr||mrs||miss") return res.send ({msg: `title is mandatory in the request`})
-    //         if (!data.email) return res.send({ msg: 'email is mandatory in the request' })
-    //         if (!data.password) return res.send({ msg: 'password is mandatory in the request' })
-
-    // let savedData = await authorModel.create(data)
-
-
-    //         res.status(200).send({ data: savedData })
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //         res.status(500).send({ msg: error.message })
-    //     }
 
     try {
-        let data = req.body;
-        if (!data.fname)
-            return res.send({ msg: "fname is mandatory in the request" }); //❌❌
-        if (!data.lname)
-            return res.send({ msg: "lname is mandatory in the request" }); //❌❌
-        if (!data.title == "mr||mrs||miss")
-            return res.send({ msg: `title is mandatory in the request` }); //❌❌
-        if (!data.email)
-            return res.send({ msg: "email is mandatory in the request" }); //❌❌
-        if (!data.password)
-            return res.send({ msg: "password is mandatory in the request" }); //❌❌
+        const data = req.body;
+        const fnameData = data.fname;
+        if (!data.fname)return res.status(400).send({ msg: "fname is mandatory in the request" }); 
+
+        const lnameData = data.lname;
+        if (!data.lname) return res.status(400).send({ msg: "lname is mandatory in the request" }); 
+
+        const  titleData = data.title;
+        if (!data.title == "mr||mrs||miss") return res.status(400).send({ msg: `title is mandatory in the request` }); 
+         
+        const emailData = data.email;
+        if (!data.email == ("/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"))return res.send({ msg: "email is mandatory in the request" }); 
+        
+        const passwordData = data.password;
+        if (!data.password == ("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"))return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
 
         let savedData = await authorModel.create(data);
-
-        res.status(200).send({ data: savedData });
+       res.status(200).send({ data: savedData });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ msg: error.message }); //❌❌
+        console.log(error);res.status(500).send({ msg: error.message }); 
+
+    }
+}
+
+
+
+
+//loginAuthor
+
+
+const loginAuthor = async function (req, res) {
+    try {
+        let email = req.body.email;
+        let password = req.body.password;
+         if (!(email &&  password))
+            return res.status(400).send({status: false, msg: "please provide emailid and password",})
+            if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) 
+            return res.status(400).send({ status: false, msg: "Wrong Email format" })
+
+            let author = await authorModel.findOne({ email: email, password: password });
+            if (!author)
+            return res.status(400).send({status: false,msg: "username or the password is not corerct",});
+            const token = jwt.sign ({  
+                authorId: author._id.toString(),
+                email: author.email,
+            },
+            "loginpagewithemailpasswordsecret-key",
+            {
+                expiresIn:"24h"
+            }
+             );
+            res.setHeader("x-api-key", token);
+            res.status(200).send({ status: true, token: token });
+          } catch (error) {
+            res.status(500).send({ error: error.message })
+          }
+        };
+                   
+
+        module.exports.createAuthor = createAuthor;
+        module.exports.loginAuthor= loginAuthor;
+
     
 
-//⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️vv⚠️⚠️⚠️
-
-///========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========> ========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>========> =========> ===========> ============> ===========> ===========> ============> ==========> =========> =========> =================> ==============>  ================> ===========>
 
 
-
-
-   
-
-
-module.exports.createAuthor = createAuthor;
-
-
-
-
-//🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏
