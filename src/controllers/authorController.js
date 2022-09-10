@@ -50,17 +50,21 @@ const loginAuthor = async function (req, res) {
             let author = await authorModel.findOne({ email: email, password: password });
             if (!author)
             return res.status(400).send({status: false,msg: "username or the password is not corerct",});
-            const token = jwt.sign ({  
-                authorId: author._id.toString(),
-                email: author.email,
+            
+            
+            
+            
+            const token = jwt.sign ({             /// create token useing by jwt sign
+                authorId: author._id.toString(),   ///     object ko string me kr deya
+                email: author.email,                     /// information dede hai aab token banao 
             },
-            "70-group-secretkey",
+            "70-group-secretkey",   // signature hai secretkey
             {
-                expiresIn:"24h"
+                expiresIn:"24h"    /// date of end 
             }
              );
-            res.setHeader("x-api-key", token);
-            res.status(200).send({ status: true, token: token });
+            res.setHeader("x-api-key", token);    /// result me show hoga token 
+            res.status(200).send({ status: true, token: token });   // then token result gives 
           } catch (error) {
             res.status(500).send({ error: error.message })
           }

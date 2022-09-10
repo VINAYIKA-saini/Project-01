@@ -32,9 +32,14 @@ const authorization = async function (req, res, next) {
    
 
       let findBlog = await blogmodel.findById(blogId);
-      if (findBlog) {
-        if (req.authorId != findBlog.authorId)return res.status(403).send({ status: false, msg:"author is not authorized to access this blog"});
+      if (!findBlog) 
+      return res.status(403).send({ status: false, msg:"blog nhi hai"});
+      {
+        
       }
+      if(req.authorId != findBlog.authorId)
+      return res.status(403).send({ status: false, msg:"author is not authorized to access this blog"});
+       
     }
 
     next();  

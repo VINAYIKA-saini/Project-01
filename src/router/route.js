@@ -15,6 +15,4 @@ router.put('/blogs/:blogId',auth.authentication,auth.authorization,blogControlle
 router.delete('/blogs/:blogId',auth.authentication,auth.authorization, blogController.deleteBlog);
 router.delete('/blogs',auth.authentication, auth.authorization,blogController.deletebyquery);
 
-// router.delete('/blogs',auth.Authenticate, blogController.deletebyquery);
-
 module.exports = router;
