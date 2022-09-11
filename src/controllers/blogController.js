@@ -45,13 +45,17 @@ const getblogs = async function (req, res) {
 };
 
 //updateBlog
-const updateBlog = async function (req, res) {
+const updateBlog = async function (req, res){
   try {
     let getId = req.params.blogId;
     let data = req.body;
+    
+    if(!data)
+    return res.status(404).send({ status: false, msg:"data is not provide" });
+
     let checkId = await blogsModel.findOne({ _id: getId });
   
-    if (checkId) 
+    if (checkId) //  asume the is gud
     {
       if (checkId.isDeleted === false)  // check into checkit me jake check kare gya ki isdeleted false hai/nahi 
       {

@@ -9,12 +9,15 @@ const authentication = async function (req, res, next) {
 
     if (!token) return res.status(400).send({ status: false, msg: "Enter token in header" });
 
-    jwt.verify(token,"70-group-secretkey",function(error,decoded){
+    jwt.verify(token,"70-group-secretkey",
+    
+    
+    function(error,decoded){     // call back function
 
       if(error)return res.status(401).send({ status: false, msg: "Invalid Token" });
 
       else 
-      req.authorId = decoded.authorId;
+      req.authorId = decoded.authorId;  // set auhtor id in the req 
       next()
    });   
   } catch (error) {
