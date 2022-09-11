@@ -1,7 +1,6 @@
-# Plutonium
 
-Repository for backend cohort - Plutonium
 
+Wasifali
 ## Blogging Site Mini Project Requirement
 
 ## Phase I
