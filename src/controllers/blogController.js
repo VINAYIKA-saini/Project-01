@@ -33,7 +33,7 @@ const getblogs = async function (req, res) {
     const check = await blogsModel.find({
       data,
       isDeleted: false,
-      isPublished: false,
+      isPublished: true,
     });
     if (check.length == 0)  // when no blog in data base give error 
       return res.status(404).send({ status: false, msg: "No blogs found" });

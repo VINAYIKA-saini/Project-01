@@ -53,7 +53,7 @@ const loginAuthor = async function (req, res) {
                 authorId: author._id.toString(),
                 email: author.email,
             },
-            "loginpagewithemailpasswordsecret-key",
+            "70-group-secretkey",
             {
                 expiresIn:"24h"
             }
