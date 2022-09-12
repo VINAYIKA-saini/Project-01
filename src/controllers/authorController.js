@@ -9,10 +9,10 @@ const createAuthor = async function (req, res) {
         const data = req.body;
         
         const fnameData = data.fname;
-        if (!fnameData)return res.status(400).send({ msg: "fname is mandatory in the request" }); 
+        if (!fnameData)return res.status(400).send({ msg: "fname is mandatory in the request" }); //// hello 
 
         const lnameData = data.lname;
-        if (!lnameData) return res.status(400).send({ msg: "lname is mandatory in the request" }); 
+        if (!lnameData) return res.status(400).send({ msg: "lname is mandatory in the request" }); /// hello 
 
         const  titleData = data.title;
         if (!titleData == "mr||mrs||miss") return res.status(400).send({ msg: `title is mandatory in the request` }); 
