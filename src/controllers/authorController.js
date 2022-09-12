@@ -19,10 +19,10 @@ const createAuthor = async function (req, res) {
         if (!data.title == "mr||mrs||miss") return res.status(400).send({ msg: `title is mandatory in the request` }); 
          
         const emailData = data.email;
-        if (!data.email == ("/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"))return res.send({ msg: "email is mandatory in the request" }); 
+        if (!data.email.match(/^([a-zA-Z0-9_.]+@[a-z]+\.[a-z]{2,3})?$/))   return res.send({ msg: "email is mandatory in the request" }); 
         
         const passwordData = data.password;
-        if (!data.password == ("(?=.\d)(?=.[a-z])(?=.*[A-Z]).{4,8}"))return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
+        if (!data.password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,99}$/))   return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
 
         let savedData = await authorModel.create(data);
        res.status(200).send({ data: savedData });
@@ -31,8 +31,6 @@ const createAuthor = async function (req, res) {
 
     }
 }
-
-
 
 //loginAuthor
 
@@ -43,8 +41,10 @@ const loginAuthor = async function (req, res) {
         let password = req.body.password;
          if (!(email &&  password))
             return res.status(400).send({status: false, msg: "please provide emailid and password",})
-            if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) 
+            if (!email.match(/^([a-zA-Z0-9_.]+@[a-z]+\.[a-z]{2,3})?$/)) 
             return res.status(400).send({ status: false, msg: "Wrong Email format" })
+            if(!password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,99}$/))
+            return res.status(400).send({ status: false, msg: "Wrong passowrd" })
 
             let author = await authorModel.findOne({ email: email, password: password });
             if (!author)
