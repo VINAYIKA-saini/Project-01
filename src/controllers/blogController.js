@@ -62,11 +62,8 @@ const updateBlog = async function (req, res){
         let check = await blogsModel.findByIdAndUpdate(
           getId,
           {
-            $push: { tags: data.tags,
-           subcategory: data.subcategory }, // becoz model me hai iss leye {}
-            title: data.title,
-            body: data.body,
-            category: data.category,
+            $push: { tags: data.tags,subcategory: data.subcategory }, // becoz model me hai iss leye {}
+            title: data.title,body: data.body,category: data.category,
              isPublished: true, 
              publishedAt: Date.now()
           },
@@ -78,12 +75,11 @@ const updateBlog = async function (req, res){
       }
     } else {
       res
-        .status(401)
-        .send({ status: false, msg: "Please enter valid Blog id" });  /// error hai if (checkId)
+        .status(401).send({ status: false, msg: "Please enter valid Blog id" });  /// error hai if (checkId)
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).send({ status: false, error: error.message });
   }
 };
 
@@ -109,7 +105,7 @@ const deleteBlog = async function (req, res) {
   {
       let save = await blogsModel.findOneAndUpdate({ _id: blogId }, { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true })
 
-      return res.status(200).send({ msg: save }) // ok report hai toh status 200 done
+      return res.status(200).send({status:true, msg: save }) // ok report hai toh status 200 done
   } 
   
   else {

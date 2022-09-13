@@ -25,7 +25,7 @@ const createAuthor = async function (req, res) {
         if (!data.password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,99}$/))   return res.send({ msg: "password is mandatory in the request with alphanumerical,higher-lower case values" }); 
 
         let savedData = await authorModel.create(data);
-       res.status(200).send({ data: savedData });
+       res.status(201).send ({status: true, data: savedData})
     } catch (error) {
         console.log(error);res.status(500).send({ msg: error.message }); 
 
@@ -58,12 +58,17 @@ const loginAuthor = async function (req, res) {
                 expiresIn:"24h"
             }
              );
-            res.setHeader("x-api-key", token);
-            res.status(200).send({ status: true, token: token });
+             res.send({ status: true, data: "login Successful", token });
+           // res.setHeader("x-api-key", token);
+            //res.status(200).send({ status: true, token: token });
           } catch (error) {
             res.status(500).send({ error: error.message })
           }
         };
+
+
+
+
                    
 
         module.exports.createAuthor = createAuthor;
