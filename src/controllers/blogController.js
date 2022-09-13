@@ -69,13 +69,12 @@ const updateBlog = async function (req, res){
           },
           { new: true } // update documt shows in finall result 
         );
-        return res.status(200).send({ status: true, msg: check }); /// every thing gud then give is status 200
+        return res.status(200).send({ status: true, message: "update Successful",data:check }); /// every thing gud then give is status 200
       } else {
         return res.status(404).send("CANT UPDATE , IT IS DELETED");  // checkid.isdeleted == true
       }
     } else {
-      res
-        .status(401).send({ status: false, msg: "Please enter valid Blog id" });  /// error hai if (checkId)
+      return res.status(401).send({ status: false, msg: "Please enter valid Blog id" });  /// error hai if (checkId)
     }
   } catch (error) {
     console.log(error.message);
